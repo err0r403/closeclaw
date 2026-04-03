@@ -2,6 +2,16 @@
 
 <!-- Registro cronológico. Append-only. Más reciente arriba. -->
 
+## 3 abril 2026 (madrugada)
+**Acción:** Primer roundtrip real en Hyperliquid. Long 0.005 ETH @ $2,051.50, closed @ $2,050.30.
+**Resultado:** P&L: -$0.0149 (~1.5 centavos). Fees confirmados: ~$0.0046/lado (0.045% taker). Roundtrip fee: ~$0.009.
+**Bugs encontrados y corregidos en vivo (dev-server auto-reload):**
+1. `place_order` market: Hyperliquid requiere precio para calcular slippage → cambiado a `createOrder` con precio
+2. `close_position`: mismo issue → mismo fix
+3. `get_markets` filtraba solo USDT, Hyperliquid usa USDC → detectado, pendiente fix
+**Tools validados end-to-end:** get_ticker, get_balance, get_funding_rate, get_positions, get_open_orders, place_order (market+limit), cancel_order, close_position.
+**Siguiente:** Fix get_markets para USDC. Investigar estrategias con funding negativo. Monitorear mercado.
+
 ## 2 abril 2026 (noche, sesión 4)
 **Acción:** MCP server conectado a Claude Code. Primer escaneo de mercado real con mis propias herramientas.
 **Resultado:**

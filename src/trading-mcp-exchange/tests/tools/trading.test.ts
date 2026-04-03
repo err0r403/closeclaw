@@ -58,27 +58,21 @@ describe("Trading Tools", () => {
         free: { USDT: 1000 },
       }),
       fetchPositions: vi.fn().mockResolvedValue([]),
-      createMarketOrder: vi.fn().mockResolvedValue({
-        id: "ord1",
-        symbol: "BTC/USDT",
-        side: "buy",
-        type: "market",
-        price: 84500,
-        amount: 0.001,
-        cost: 84.5,
-        status: "filled",
-        timestamp: 1711929600000,
+      createOrder: vi.fn().mockImplementation((_symbol: string, type: string) => {
+        if (type === "market") {
+          return Promise.resolve({
+            id: "ord1", symbol: "BTC/USDT", side: "buy", type: "market",
+            price: 84500, amount: 0.001, cost: 84.5, status: "filled", timestamp: 1711929600000,
+          });
+        }
+        return Promise.resolve({
+          id: "ord2", symbol: "BTC/USDT", side: "buy", type: "limit",
+          price: 83000, amount: 0.001, cost: 83, status: "open", timestamp: 1711929600000,
+        });
       }),
-      createLimitOrder: vi.fn().mockResolvedValue({
-        id: "ord2",
-        symbol: "BTC/USDT",
-        side: "buy",
-        type: "limit",
-        price: 83000,
-        amount: 0.001,
-        cost: 83,
-        status: "open",
-        timestamp: 1711929600000,
+      createMarketOrder: vi.fn().mockResolvedValue({
+        id: "ord1", symbol: "BTC/USDT", side: "buy", type: "market",
+        price: 84500, amount: 0.001, cost: 84.5, status: "filled", timestamp: 1711929600000,
       }),
       cancelOrder: vi.fn().mockResolvedValue({ id: "ord1" }),
       fetchOpenOrders: vi.fn().mockResolvedValue([]),
@@ -105,8 +99,8 @@ describe("Trading Tools", () => {
       const data = JSON.parse(result.content[0].text);
       expect(data.id).toBe("ord1");
       expect(data.status).toBe("filled");
-      expect(mockEx.createMarketOrder).toHaveBeenCalledWith(
-        "BTC/USDT", "buy", 0.001, undefined, expect.any(Object)
+      expect(mockEx.createOrder).toHaveBeenCalledWith(
+        "BTC/USDT", "market", "buy", 0.001, 84500, expect.any(Object)
       );
       expect(mockLogTrade).toHaveBeenCalledOnce();
     });
@@ -128,8 +122,8 @@ describe("Trading Tools", () => {
 
       const data = JSON.parse(result.content[0].text);
       expect(data.id).toBe("ord2");
-      expect(mockEx.createLimitOrder).toHaveBeenCalledWith(
-        "BTC/USDT", "buy", 0.001, 83000, expect.any(Object)
+      expect(mockEx.createOrder).toHaveBeenCalledWith(
+        "BTC/USDT", "limit", "buy", 0.001, 83000, expect.any(Object)
       );
     });
 
@@ -272,8 +266,8 @@ describe("Trading Tools", () => {
         reduceOnly: true,
       });
 
-      expect(mockEx.createMarketOrder).toHaveBeenCalledWith(
-        "BTC/USDT", "sell", 0.0001, undefined,
+      expect(mockEx.createOrder).toHaveBeenCalledWith(
+        "BTC/USDT", "market", "sell", 0.0001, 84500,
         expect.objectContaining({
           marginMode: "isolated",
           reduceOnly: true,
@@ -347,7 +341,7 @@ describe("Trading Tools", () => {
 
     it("handles order response with null price/cost fields", async () => {
       const mockEx = createMockExchange({
-        createMarketOrder: vi.fn().mockResolvedValue({
+        createOrder: vi.fn().mockResolvedValue({
           id: "ord1", symbol: "BTC/USDT", side: "buy", type: "market",
           price: null, average: null, amount: 0.0001, cost: null,
           status: "filled", timestamp: null,
@@ -443,7 +437,7 @@ describe("Trading Tools", () => {
         fetchPositions: vi.fn().mockResolvedValue([
           { symbol: "BTC/USDT", side: "long", contracts: 0.001, unrealizedPnl: 0.5 },
         ]),
-        createMarketOrder: vi.fn().mockResolvedValue({ price: 84500, average: 84500 }),
+        createOrder: vi.fn().mockResolvedValue({ price: 84500, average: 84500 }),
       });
       mockGetExchange.mockReturnValue(mockEx as any);
 
@@ -453,8 +447,8 @@ describe("Trading Tools", () => {
       const data = JSON.parse(result.content[0].text);
       expect(data.side).toBe("long");
       expect(data.closedSize).toBe(0.001);
-      expect(mockEx.createMarketOrder).toHaveBeenCalledWith(
-        "BTC/USDT", "sell", 0.001, undefined, { reduceOnly: true }
+      expect(mockEx.createOrder).toHaveBeenCalledWith(
+        "BTC/USDT", "market", "sell", 0.001, expect.any(Number), { reduceOnly: true }
       );
     });
 
@@ -471,8 +465,8 @@ describe("Trading Tools", () => {
 
       const data = JSON.parse(result.content[0].text);
       expect(data.side).toBe("short");
-      expect(mockEx.createMarketOrder).toHaveBeenCalledWith(
-        "ETH/USDT", "buy", 0.01, undefined, { reduceOnly: true }
+      expect(mockEx.createOrder).toHaveBeenCalledWith(
+        "ETH/USDT", "market", "buy", 0.01, expect.any(Number), { reduceOnly: true }
       );
     });
 

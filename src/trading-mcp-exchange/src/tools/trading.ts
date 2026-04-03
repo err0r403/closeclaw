@@ -104,12 +104,14 @@ export function registerTradingTools(server: McpServer): void {
       // Execute order
       let order;
       if (type === "market") {
-        order = await ex.createMarketOrder(symbol, side, amount, undefined, params);
+        // Some exchanges (Hyperliquid) require price for market orders to calculate max slippage
+        // Pass estimatedPrice as the slippage cap
+        order = await ex.createOrder(symbol, "market", side, amount, estimatedPrice, params);
       } else {
         if (!price) {
           return errorResult("Price is required for limit orders");
         }
-        order = await ex.createLimitOrder(symbol, side, amount, price, params);
+        order = await ex.createOrder(symbol, "limit", side, amount, price, params);
       }
 
       const result = {
@@ -217,7 +219,11 @@ export function registerTradingTools(server: McpServer): void {
       const side = position.side === "long" ? "sell" : "buy";
       const size = Math.abs(position.contracts ?? 0);
 
-      const order = await ex.createMarketOrder(symbol, side, size, undefined, {
+      // Use createOrder with price for exchanges that require slippage calc (Hyperliquid)
+      const ticker = await ex.fetchTicker(symbol);
+      const closePrice = ticker.last ?? 0;
+
+      const order = await ex.createOrder(symbol, "market", side, size, closePrice, {
         reduceOnly: true,
       });
 
