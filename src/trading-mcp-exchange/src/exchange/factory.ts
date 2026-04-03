@@ -40,8 +40,14 @@ export function getExchange(name: SupportedExchange, requireAuth = false): Excha
   };
 
   if (keys) {
-    config.apiKey = keys.apiKey;
-    config.secret = keys.secret;
+    // Hyperliquid uses walletAddress + privateKey instead of apiKey + secret
+    if (name === "hyperliquid") {
+      config.walletAddress = keys.apiKey;
+      config.privateKey = keys.secret;
+    } else {
+      config.apiKey = keys.apiKey;
+      config.secret = keys.secret;
+    }
   }
 
   const instance = new ExchangeClass(config) as Exchange;
