@@ -18,12 +18,13 @@
 | Track | Tipo | Prioridad | Estado | Siguiente acción | Último avance |
 |-------|------|-----------|--------|-------------------|---------------|
 | [upwork](../tracks/upwork/README.md) | channel | P0 | 🟡 active (bloqueado) | Thiago crea cuenta | Perfil, propuestas y spec listos (31 mar) |
+| [trading](../tracks/trading/README.md) | service | P1 | 🟢 active | Spec MCP Server Exchange | Decisiones fundacionales cerradas, estrategia MVP definida (2 abr) |
 
 ## Tracks en Exploración
 
 | Track | Hipótesis | Costo de validar | Deadline para decidir |
 |-------|-----------|------------------|-----------------------|
-| [trading](../tracks/trading/README.md) | Sistema multi-capa (ejecución + datos + agentes IA) para explotar ineficiencias de mercado con enfoque delta-neutral | Tiempo de research + dev. $0 infra inicial | Definir después de spec técnica |
+| — | — | — | — |
 
 ## Tracks Cerrados
 
