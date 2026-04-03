@@ -11,7 +11,19 @@ Thumbs.db
 # Claude Code
 .claude/
 
-# Node (por si se usa n8n o herramientas locales en el futuro)
+# Dependencies
 node_modules/
+
+# Environment
 .env
 .env.*
+!.env.example
+
+# Build artifacts
+dist/
+build/
+coverage/
+
+# Logs (except chat logs)
+*.log
+!docs/chats/*.log
