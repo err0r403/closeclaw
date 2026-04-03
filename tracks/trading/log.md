@@ -2,6 +2,16 @@
 
 <!-- Registro cronológico. Append-only. Más reciente arriba. -->
 
+## 2 abril 2026 (noche, sesión 4)
+**Acción:** MCP server conectado a Claude Code. Primer escaneo de mercado real con mis propias herramientas.
+**Resultado:**
+- Balance Hyperliquid: $5.97 USDC. 0 posiciones. 0 órdenes.
+- BTC $66,292 | ETH $2,043 | SOL ~$79
+- Todos los funding rates negativos (shorts pagan a longs): BTC -1.12%, ETH -0.58%, SOL -1.69% anualizado
+- Cash & Carry clásico NO rentable en este régimen. Reverse carry no posible sin short en spot.
+**Decisión:** No operar. Funding negativo = sin edge delta-neutral. Pipeline validado — tools funcionan end-to-end.
+**Siguiente:** Monitorear funding rates. Operar cuando cambien a positivo. Explorar si hay oportunidades en otros regímenes.
+
 ## 2 abril 2026 (noche, sesión 3)
 **Acción:** Implementación completa del MCP Server Exchange. 14 tools en 3 categorías (market, account, trading). Risk validator, trade logger, exchange factory con CCXT. Compila y bootea limpio.
 **Resultado:** Proyecto en `src/trading-mcp-exchange/`. Build OK. Server inicia sin errores. Listo para conectar a Claude Code con API keys.
