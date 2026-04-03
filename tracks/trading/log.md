@@ -2,6 +2,11 @@
 
 <!-- Registro cronológico. Append-only. Más reciente arriba. -->
 
+## 2 abril 2026 (noche, sesión 3)
+**Acción:** Implementación completa del MCP Server Exchange. 14 tools en 3 categorías (market, account, trading). Risk validator, trade logger, exchange factory con CCXT. Compila y bootea limpio.
+**Resultado:** Proyecto en `src/trading-mcp-exchange/`. Build OK. Server inicia sin errores. Listo para conectar a Claude Code con API keys.
+**Siguiente:** Crear API keys en Binance, configurar .env, conectar MCP server a Claude Code, probar con datos reales.
+
 ## 2 abril 2026 (noche, sesión 2)
 **Acción:** Ronda de Q&A con Thiago. Respuestas incorporadas al análisis. Decisiones fundacionales documentadas en `research/analisis-decisiones-fundacionales.md`.
 **Datos clave:** ~$50/exchange, KYC hecho en 4 exchanges, BTC/ETH/SOL autorizados, spot+margin+futuros, 24/7, autonomía total, reporting via logs.

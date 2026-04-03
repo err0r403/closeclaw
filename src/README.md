@@ -10,7 +10,7 @@ Este directorio alberga todos los proyectos de software de CloseClaw. Cada proye
 
 | Proyecto | Track | Lenguaje | Estado | Descripción |
 |----------|-------|----------|--------|-------------|
-| — | — | — | — | Sin proyectos aún |
+| [trading-mcp-exchange](trading-mcp-exchange/) | trading | TypeScript | dev | MCP server para operar exchanges de crypto. 14 tools: market data, account, trading. |
 
 ## Librerías Compartidas
 
