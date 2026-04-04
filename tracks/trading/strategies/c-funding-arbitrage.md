@@ -35,15 +35,20 @@ No predice dirección. Se posiciona para **cobrar** funding rate. Si funding es 
 - **Esta es una estrategia de largo holding, no de scalping**
 
 ## Posición Actual
-Ninguna.
+| Par | Side | Size | Entry | Leverage | Opened | Target hold | SL |
+|-----|------|------|-------|----------|--------|-------------|-----|
+| BTC/USDC:USDC | long | 0.0004 BTC | $67,312 | 2x | 2026-04-04 14:20 | 2-3 funding periods (16-24h) | -$50 ($67,262) |
+
+**Razón:** Funding -1.62% anual. Shorts pagan ~$0.0012/periodo en $27 notional. Precio en rango (no tendencia). Objetivo: cobrar funding, no ganar por precio.
 
 ## Performance
 | Métrica | Valor |
 |---------|-------|
-| Trades | 0 |
+| Trades | 0 cerrados |
 | Win rate | — |
 | P&L total | $0.00 |
 | Funding cobrado | $0.00 |
+| Posición abierta P&L | $0.00 (recién abierta) |
 
 ## Historial
 | # | Open | Close | Side | Entry | Exit | Funding cobrado | Price P&L | Fee | Net P&L | Nota |

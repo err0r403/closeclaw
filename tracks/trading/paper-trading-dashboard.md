@@ -1,6 +1,6 @@
 # Paper Trading Dashboard — Multi-Estrategia
 
-> Última actualización: 2026-04-04 14:05
+> Última actualización: 2026-04-04 14:20
 > Capital virtual por estrategia: $100 USDC cada una
 > Exchange: Hyperliquid (datos reales, ejecución simulada)
 
@@ -12,7 +12,7 @@
 |------------|---------|-----|----------|--------|---------|----------|---------------|--------|
 | [A: Momentum Long](strategies/a-momentum-long.md) | $99.74 | -$0.25 | 33% (3/9) | 9 | +$0.011 | -$0.046 | 0.10 | ⏸️ En revisión |
 | [B: Trend Following](strategies/b-trend-following.md) | $100.00 | $0.00 | — | 0 | — | — | — | 🟢 Nueva |
-| [C: Funding Arbitrage](strategies/c-funding-arbitrage.md) | $100.00 | $0.00 | — | 0 | — | — | — | 🟢 Nueva |
+| [C: Funding Arbitrage](strategies/c-funding-arbitrage.md) | $99.99 | -$0.01 | — | 0 | — | — | — | 📈 Long abierto @ $67,312 |
 
 ## Ranking (por Profit Factor)
 1. — Sin datos suficientes aún —
@@ -21,9 +21,9 @@
 
 | Dato | Valor | Implicancia |
 |------|-------|-------------|
-| BTC | — | Actualizado cada ciclo |
-| Funding BTC | — | Actualizado cada ciclo |
-| Régimen | — | bullish / bearish / choppy / squeeze |
+| BTC | $67,311 | Estabilizándose post-corrección |
+| Funding BTC | -1.62% anual | Shorts pagando, convergiendo desde -2.96% |
+| Régimen | Transición (corrección → rango) | Precio flat, funding mejorando |
 
 ## Reglas del Framework
 1. Cada estrategia tiene $100 USDC virtuales independientes
