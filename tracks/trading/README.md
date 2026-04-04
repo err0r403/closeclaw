@@ -4,108 +4,102 @@
 ## Objetivo
 Operar cuentas de trading directamente como experto financiero. CloseClaw actúa como asesor/operador que ejecuta trades, gestiona riesgo, y busca rentabilidad consistente a través de estrategias sistemáticas.
 
-## Hipótesis
-CloseClaw puede operar trading de forma **100% agéntica** — tomando datos, analizando, decidiendo, y ejecutando trades directamente — si dispone de las herramientas adecuadas (MCP servers, CLI) que le den acceso a exchanges y datos de mercado.
-
-### Sub-hipótesis:
-- Los LLMs son malos calculando pero buenos analizando contexto y régimen de mercado
-- Las estrategias delta-neutral eliminan el riesgo de "bag holding"
-- Un kill switch independiente puede contener el riesgo sistémico
-- El arbitraje de tiempo (slow trading) es viable para un operador retail sin VPS colocado
-- **CloseClaw como operador directo** (no un bot autónomo) permite adaptación y juicio que un script no tiene
-
 ## Enfoque: IA-First, Tooling para el Agente
 
-**El flujo es 100% agéntico.** CloseClaw (Claude) es el operador. No construimos un bot autónomo que corre solo — construimos herramientas que CloseClaw usa directamente:
+**El flujo es 100% agéntico.** CloseClaw (Claude) es el operador. Las herramientas son mis manos y ojos:
 
-| Herramienta | Tipo | Propósito |
-|-------------|------|-----------|
-| MCP Server: Exchange | MCP | Leer mercado (precios, orderbook, funding rates, posiciones) y ejecutar trades |
-| MCP Server: Analytics | MCP | Análisis técnico, detección de régimen, señales |
-| CLI: Trading Ops | CLI | Operaciones manuales, monitoreo, emergencias |
-| Kill Switch | Proceso independiente | Circuit breaker automático fuera del control del agente |
-
-**El cerebro soy yo (CloseClaw/Claude).** Las herramientas son mis manos y ojos.
+| Herramienta | Tipo | Estado | Propósito |
+|-------------|------|--------|-----------|
+| MCP Server: Exchange | MCP | ✅ Operativo | Leer mercado + ejecutar trades. 14 tools. |
+| MCP Server: Analytics | MCP | ⬜ Pendiente | Análisis técnico, detección de régimen |
+| CLI: Trading Ops | CLI | ⬜ Pendiente | Monitoreo, emergencias |
+| Kill Switch | Proceso | ⬜ Pendiente | Circuit breaker fuera del control del agente |
 
 ## Estado Actual
-- **Fase:** Investigación y definición. No hay código ni spec técnica formal.
-- **Input:** Brainstorm de arquitectura y estrategias → `research/brainstorm-arquitectura.md`
-- **Dirección definida:** Flujo 100% agéntico. Construir MCP servers + CLI como herramientas para que CloseClaw opere directamente.
-- **Siguiente:** Definir spec técnica de las herramientas (MCP server de exchange como MVP)
 
-## Research
-| Documento | Descripción |
-|-----------|-------------|
-| [brainstorm-arquitectura.md](research/brainstorm-arquitectura.md) | Lluvia de ideas sobre arquitectura y estrategias. Input de pensamiento, NO spec. |
-| [analisis-decisiones-fundacionales.md](research/analisis-decisiones-fundacionales.md) | Análisis completo con decisiones justificadas. Respuestas de Thiago incorporadas. |
+- **MCP Server Exchange:** ✅ Implementado, testeado (72 tests, 93% coverage), conectado a Claude Code
+- **Exchange activo:** Hyperliquid (wallet `0x163f...4500`, $5.95 USDC real)
+- **Estrategia definida:** [strategy.md](strategy.md) — BTC momentum long con orderbook reading
+- **Paper trading:** [paper-trades.md](paper-trades.md) — 8 trades cerrados, 1 abierto. P&L: -$0.16
+- **Dev server:** Auto-reload activo (tsx + file watcher)
+- **Siguiente:** Continuar paper trading, converger a profit factor >1.0
+
+## Documentación
+
+| Documento | Propósito |
+|-----------|-----------|
+| [strategy.md](strategy.md) | Estrategia formalizada: triggers, sizing, risk management, lecciones |
+| [paper-trades.md](paper-trades.md) | Log de paper trading con capital simulado ($100 USDC) |
+| [spec-mcp-exchange.md](spec-mcp-exchange.md) | Spec técnica del MCP Server Exchange (14 tools) |
+| [log.md](log.md) | Registro cronológico de actividades del track |
+| [research/brainstorm-arquitectura.md](research/brainstorm-arquitectura.md) | Input original de Thiago (arquitectura, estrategias) |
+| [research/analisis-decisiones-fundacionales.md](research/analisis-decisiones-fundacionales.md) | Decisiones fundacionales con justificaciones |
 
 ## Plan
+
 - [x] Brainstorm de arquitectura y estrategias (input de Thiago)
 - [x] Definir enfoque: 100% agéntico, herramientas para CloseClaw
-- [ ] Analizar brainstorm: separar lo viable de lo especulativo
-- [ ] Spec técnica: MCP Server Exchange (MVP — leer mercado + ejecutar trades)
-- [ ] Spec técnica: Kill Switch (proceso independiente)
-- [ ] Spec técnica: MCP Server Analytics (análisis y señales)
-- [ ] Spec técnica: CLI Trading Ops
-- [ ] Definir primera estrategia a operar (MVP)
-- [ ] Setup de proyecto(s) en `src/`
-- [ ] Implementar MCP Server Exchange
-- [ ] Implementar Kill Switch
-- [ ] Implementar MCP Server Analytics
-- [ ] Implementar CLI
-- [ ] Paper trading (CloseClaw operando con datos reales, sin capital)
+- [x] Analizar brainstorm y tomar decisiones fundacionales
+- [x] Spec técnica: MCP Server Exchange
+- [x] Implementar MCP Server Exchange (14 tools, 72 tests)
+- [x] Conectar a Hyperliquid (wallet configurado, balance visible)
+- [x] Primer trade real (roundtrip ETH, validación de pipeline)
+- [x] Dev server con auto-reload (tsx + file watcher)
+- [x] Definir estrategia de trading (strategy.md)
+- [x] Paper trading Session 1 (8 trades, 12 lecciones)
+- [ ] Paper trading: converger a profit factor >1.0
+- [ ] Implementar Kill Switch (proceso independiente)
+- [ ] Implementar monitor script 24/7 (no depender de sesión Claude)
+- [ ] Conectar Binance (API keys pendientes)
 - [ ] Trading real con capital mínimo
 
 ## Code Projects
-| Proyecto | Path | Branch | Estado |
-|----------|------|--------|--------|
-| trading-mcp-exchange | `src/trading-mcp-exchange/` | — | Pendiente spec |
-| trading-mcp-analytics | `src/trading-mcp-analytics/` | — | Pendiente spec |
-| trading-cli | `src/trading-cli/` | — | Pendiente spec |
-| trading-killswitch | `src/trading-killswitch/` | — | Pendiente spec |
 
-## Métricas
-| Métrica | Valor |
-|---------|-------|
-| Inversión acumulada | $0 |
-| Ingreso generado | $0 |
-| Tiempo invertido | ~1h (research y brainstorm) |
-| P&L paper trading | N/A |
-| P&L real | N/A |
+| Proyecto | Path | Estado | Descripción |
+|----------|------|--------|-------------|
+| trading-mcp-exchange | `src/trading-mcp-exchange/` | ✅ Operativo | 14 tools, 72 tests, 93% coverage. Conectado a Hyperliquid. |
+| trading-mcp-analytics | `src/trading-mcp-analytics/` | ⬜ Pendiente | Análisis técnico y señales |
+| trading-cli | `src/trading-cli/` | ⬜ Pendiente | CLI para operaciones |
+| trading-killswitch | `src/trading-killswitch/` | ⬜ Pendiente | Circuit breaker independiente |
 
 ## Exchanges y Capital
 
-| Exchange | Tipo | Capital aprox | KYC | API keys | Prioridad |
-|----------|------|---------------|-----|----------|-----------|
-| Binance | CEX | ~$50 | ✅ | ⬜ Por crear | 🔴 MVP |
-| Bybit | CEX | ~$50 | ✅ | ⬜ Por crear | 🟡 Fase 2 |
-| Hyperliquid | DEX | ~$50 | ✅ | ⬜ Por crear | 🟡 Fase 2 |
-| Blofin | CEX | ~$50 | ✅ | ⬜ Por crear | 🔵 Fase 3 |
+| Exchange | Tipo | Capital | KYC | API keys | Estado |
+|----------|------|---------|-----|----------|--------|
+| Hyperliquid | DEX | ~$5.95 USDC | ✅ | ✅ Configuradas | 🟢 Operativo |
+| Binance | CEX | ~$50 | ✅ | ⬜ Por crear | 🟡 Siguiente |
+| Bybit | CEX | ~$50 | ✅ | ⬜ Por crear | ⬜ Fase 2 |
+| Blofin | CEX | ~$50 | ✅ | ⬜ Por crear | ⬜ Fase 3 |
 
-**Pares autorizados:** BTC/USDT, ETH/USDT, SOL/USDT + pre-seleccionadas estrictamente.
+**Pares autorizados:** BTC/USDT, ETH/USDT, SOL/USDT, BTC/USDC:USDC, ETH/USDC:USDC, SOL/USDC:USDC
 **Mercados:** Spot, margin, futuros perpetuos.
 **Control:** Cuentas exclusivas de CloseClaw. Autonomía total. 24/7.
 
-## Estrategias en Evaluación
-| Estrategia | Tipo | Riesgo | Complejidad | Estado |
-|------------|------|--------|-------------|--------|
-| Cash and carry (funding rates) | Delta-neutral | Bajo | Baja | 🔴 **MVP elegida** |
-| Grid con cobertura (spot + short) | Delta-neutral | Bajo | Media | Investigación |
-| Pairs trading (reversión a la media) | Estadístico | Medio | Media | Investigación |
-| Arbitraje espacial (CEX vs DEX) | Delta-neutral | Medio (leg risk) | Alta | Investigación |
-| Orquestador dinámico (supervisor IA) | Meta-estrategia | Variable | Alta | Investigación |
+## Métricas
+
+| Métrica | Valor |
+|---------|-------|
+| Tiempo invertido | ~8h (research, dev, paper trading) |
+| MCP tools implementados | 14 |
+| Tests | 72 (93% branch coverage) |
+| Paper trades ejecutados | 9 (8 cerrados, 1 abierto) |
+| Paper P&L | -$0.16 (capital $99.83 de $100) |
+| Paper win rate | 37.5% (3/8) |
+| Trade real ejecutado | 1 (roundtrip ETH, -$0.015) |
+| P&L real | -$0.015 |
 
 ## Decisiones Tomadas
+
 | Fecha | Decisión | Razón |
 |-------|----------|-------|
-| 2 abr 2026 | Track creado en estado `exploring` | Alto potencial pero requiere research profundo antes de invertir tiempo/dinero |
-| 2 abr 2026 | Brainstorm preservado como research, no como spec | Es input de pensamiento, no decisión técnica final |
-| 2 abr 2026 | Flujo 100% agéntico — CloseClaw opera directamente | No construir bot autónomo. Construir herramientas (MCP, CLI) que el agente usa |
-| 2 abr 2026 | MCP servers como interfaz principal | CloseClaw (Claude) necesita tools para leer mercado y ejecutar trades en sesión |
-| 2 abr 2026 | Binance como exchange MVP | Máxima liquidez, spot+margin+perps, CCXT full support |
+| 2 abr 2026 | Flujo 100% agéntico | Construir herramientas para que el agente opere, no un bot autónomo |
+| 2 abr 2026 | MCP servers como interfaz | Claude necesita tools para operar exchanges en sesión |
+| 2 abr 2026 | CCXT como abstracción | Multi-exchange con cambio de config, no de código |
 | 2 abr 2026 | Cash & Carry como estrategia MVP | Menor complejidad, delta-neutral, valida todo el stack |
-| 2 abr 2026 | Autonomía total, 24/7, reporting via logs | Thiago confía en CloseClaw dentro de límites definidos |
-| 2 abr 2026 | Capital micro (~$50/exchange). Prioridad = validar pipeline | Generar retorno es secundario hasta que el sistema esté probado |
+| 2 abr 2026 | Autonomía total, 24/7, logs | Thiago confía en CloseClaw dentro de límites |
+| 3 abr 2026 | Hyperliquid como exchange operativo | Wallet disponible, DEX sin restricciones, USDC |
+| 3 abr 2026 | BTC momentum long como edge | Paper trading validó: winners = BTC longs con paciencia |
+| 4 abr 2026 | Estrategia formalizada en strategy.md | 12 lecciones de 8 paper trades sistematizadas |
 
 ## Siguiente Acción
-Definir spec técnica del MCP Server Exchange (MVP): qué tools expone, qué exchanges soporta, qué operaciones permite. Sin esta herramienta soy ciego y manco.
+Continuar paper trading aplicando strategy.md. Objetivo: profit factor >1.0 y win rate >40%. Trade #9 abierto (long BTC @ $67,441).

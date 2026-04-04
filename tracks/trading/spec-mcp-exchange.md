@@ -4,6 +4,14 @@
 > **Tipo:** MCP Server (stdio transport)
 > **Stack:** TypeScript + CCXT + @modelcontextprotocol/sdk
 > **Propósito:** Dar a CloseClaw (Claude) ojos y manos para operar exchanges de crypto
+> **Estado:** ✅ Implementado y operativo. 14 tools, 72 tests, 93% coverage.
+> **Código:** `src/trading-mcp-exchange/`
+>
+> ### Notas de implementación (divergencias de la spec original)
+> - `place_order` y `close_position` usan `createOrder()` en vez de `createMarketOrder()` para compatibilidad con Hyperliquid (requiere precio para slippage)
+> - Exchange factory tiene manejo especial para Hyperliquid: usa `walletAddress` + `privateKey` en vez de `apiKey` + `secret`
+> - Allowed pairs incluyen variantes USDC: `BTC/USDC:USDC`, `ETH/USDC:USDC`, `SOL/USDC:USDC`
+> - Dev server (`dev-server.mjs`) con auto-reload via tsx + file watcher
 
 ---
 
@@ -197,7 +205,7 @@ Output: { symbol, side, closedSize, realizedPnl, closePrice }
 RISK_MAX_LEVERAGE=3
 RISK_MAX_POSITION_PCT=20
 RISK_MAX_OPEN_POSITIONS=5
-RISK_ALLOWED_PAIRS=BTC/USDT,ETH/USDT,SOL/USDT
+RISK_ALLOWED_PAIRS=BTC/USDT,ETH/USDT,SOL/USDT,BTC/USDC:USDC,ETH/USDC:USDC,SOL/USDC:USDC,BTC/USDC,ETH/USDC,SOL/USDC
 RISK_SESSION_MAX_DRAWDOWN_PCT=5
 RISK_TOTAL_MAX_DRAWDOWN_PCT=15
 ```
@@ -316,14 +324,15 @@ src/trading-mcp-exchange/
 
 ## 8. Fases de Implementación
 
-| Fase | Scope | Criterio de éxito |
-|------|-------|--------------------|
-| **0: Skeleton** | Project setup, MCP server boots, 1 dummy tool | `node dist/index.js` inicia sin error |
-| **1: Market Data** | get_ticker, get_ohlcv, get_funding_rate | Puedo ver precios y funding rates desde Claude |
-| **2: Account** | get_balance, get_positions | Puedo ver mi capital y posiciones |
-| **3: Trading** | place_order, cancel_order, close_position | Puedo ejecutar un trade desde Claude |
-| **4: Risk** | Validaciones, logging, limits | Trades rechazados si violan límites |
-| **5: Full** | Todos los tools, tests, docs | Sistema completo y validado |
+| Fase | Scope | Estado |
+|------|-------|--------|
+| **0: Skeleton** | Project setup, MCP server boots | ✅ Completado |
+| **1: Market Data** | get_ticker, get_ohlcv, get_funding_rate, get_orderbook, get_markets | ✅ Completado |
+| **2: Account** | get_balance, get_positions, get_open_orders, get_trades | ✅ Completado |
+| **3: Trading** | place_order, cancel_order, cancel_all_orders, close_position | ✅ Completado |
+| **4: Risk** | Validaciones, logging, limits | ✅ Completado |
+| **5: Tests** | 72 tests, 93% branch coverage | ✅ Completado |
+| **6: Live** | Conectado a Hyperliquid, trade real ejecutado | ✅ Completado |
 
 ---
 
