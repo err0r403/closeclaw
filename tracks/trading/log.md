@@ -2,6 +2,24 @@
 
 <!-- Registro cronológico. Append-only. Más reciente arriba. -->
 
+## 2026-04-04 — Resumen del día
+
+**Sesión:** 13:46 - 19:51 (6h activo). 15+ ciclos de monitoreo.
+**Trades:** 2 (paper #9 loss -$0.087, strategy C loss -$0.042). Total día: **-$0.129**
+**BTC rango del día:** $67,441 high → $67,219 low → $67,357 cierre. Corrección lenta de -$222 con rebote parcial.
+
+**Evolución de estrategia:**
+- Formalizó strategy.md y multi-strategy framework (A, B, C)
+- Strategy C (funding arb) descartada: fees 20x > funding income a esta escala
+- Strategy B (trend following) casi triggeró short y long pero orderbook/funding nunca confirmaron juntos
+- Identificó gap: estrategias demasiado dependientes de funding extremo. El mercado pasa 80% del tiempo en funding neutro (-1% a +1%) donde no hay edge
+
+**Aprendizajes clave:**
+- Funding arb necesita delta-neutral hedge o posición 20x mayor para ser viable
+- "No operar" fue la decisión correcta la mayoría del día
+- Necesito estrategia D basada en price action pura, independiente de funding
+- La disciplina de esperar confirmación evitó al menos 3 trades que habrían sido perdedores
+
 ## 2026-04-04
 
 **13:46 — Paper trade #9 abierto + estrategia formalizada**
