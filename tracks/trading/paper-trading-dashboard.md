@@ -1,6 +1,6 @@
 # Paper Trading Dashboard — Multi-Estrategia
 
-> Última actualización: 2026-04-04 14:20
+> Última actualización: 2026-04-04 15:40
 > Capital virtual por estrategia: $100 USDC cada una
 > Exchange: Hyperliquid (datos reales, ejecución simulada)
 
@@ -12,7 +12,7 @@
 |------------|---------|-----|----------|--------|---------|----------|---------------|--------|
 | [A: Momentum Long](strategies/a-momentum-long.md) | $99.74 | -$0.25 | 33% (3/9) | 9 | +$0.011 | -$0.046 | 0.10 | ⏸️ En revisión |
 | [B: Trend Following](strategies/b-trend-following.md) | $100.00 | $0.00 | — | 0 | — | — | — | 🟢 Nueva |
-| [C: Funding Arbitrage](strategies/c-funding-arbitrage.md) | $99.99 | -$0.01 | — | 0 | — | — | — | 📈 Long abierto @ $67,312 |
+| [C: Funding Arbitrage](strategies/c-funding-arbitrage.md) | $99.96 | -$0.042 | 0% (0/1) | 1 | — | -$0.042 | 0 | ❌ No viable con micro-capital |
 
 ## Ranking (por Profit Factor)
 1. — Sin datos suficientes aún —
@@ -21,9 +21,9 @@
 
 | Dato | Valor | Implicancia |
 |------|-------|-------------|
-| BTC | $67,311 | Estabilizándose post-corrección |
-| Funding BTC | -1.62% anual | Shorts pagando, convergiendo desde -2.96% |
-| Régimen | Transición (corrección → rango) | Precio flat, funding mejorando |
+| BTC | $67,261 | Corrección lenta continúa |
+| Funding BTC | -1.66% anual | Shorts pagando pero tienen razón (precio baja) |
+| Régimen | Bearish lento | Lower highs desde $67,441, sin soporte claro |
 
 ## Reglas del Framework
 1. Cada estrategia tiene $100 USDC virtuales independientes

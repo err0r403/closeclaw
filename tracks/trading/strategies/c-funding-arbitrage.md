@@ -35,21 +35,25 @@ No predice dirección. Se posiciona para **cobrar** funding rate. Si funding es 
 - **Esta es una estrategia de largo holding, no de scalping**
 
 ## Posición Actual
-| Par | Side | Size | Entry | Leverage | Opened | Target hold | SL |
-|-----|------|------|-------|----------|--------|-------------|-----|
-| BTC/USDC:USDC | long | 0.0004 BTC | $67,312 | 2x | 2026-04-04 14:20 | 2-3 funding periods (16-24h) | -$50 ($67,262) |
-
-**Razón:** Funding -1.62% anual. Shorts pagan ~$0.0012/periodo en $27 notional. Precio en rango (no tendencia). Objetivo: cobrar funding, no ganar por precio.
+Ninguna.
 
 ## Performance
 | Métrica | Valor |
 |---------|-------|
-| Trades | 0 cerrados |
-| Win rate | — |
-| P&L total | $0.00 |
-| Funding cobrado | $0.00 |
-| Posición abierta P&L | $0.00 (recién abierta) |
+| Trades | 1 |
+| Win rate | 0% (0/1) |
+| P&L total | -$0.042 |
+| Funding cobrado total | $0.0022 |
 
 ## Historial
 | # | Open | Close | Side | Entry | Exit | Funding cobrado | Price P&L | Fee | Net P&L | Nota |
 |---|------|-------|------|-------|------|-----------------|-----------|-----|---------|------|
+| 1 | 2026-04-04 14:20 | 2026-04-04 15:40 | long | $67,312 | $67,262 | $0.0022 | -$0.020 | $0.024 | -$0.042 | Stop hit. 80 min hold, 2 funding cobros. El funding ($0.002) no compensa el price move ($0.020) + fees ($0.024). SL de -$50 demasiado tight para funding arb. |
+
+## Análisis Post-Trade
+**Problema:** SL de -$50 es demasiado tight para una estrategia de holding largo. BTC se mueve $50 en minutos — normal. Pero el funding por periodo es ~$0.001. Necesito 40+ periodos (13 días) para cubrir solo los fees de $0.024. Eso requiere que el precio NO se mueva $50 en 13 días — imposible en crypto.
+
+**Conclusión:** Funding arb puro en perps con este tamaño de posición NO es viable. El ratio fee/funding es 20:1. Se necesitaría:
+- Posición 20x más grande para que el funding cubra fees rápido, O
+- Fees de maker (0.015%) en vez de taker (0.045%), O
+- Hedge delta-neutral (spot + perp) para eliminar price risk — el diseño original de Cash & Carry
