@@ -16,16 +16,16 @@
 | Concepto | Valor |
 |----------|-------|
 | Capital inicial | $100.00 |
-| Capital actual | $99.83 |
-| P&L total | -$0.16 |
-| Trades cerrados | 8 |
-| Win rate | 37.5% (3/8) |
-| Posiciones abiertas | 1 |
+| Capital actual | $99.74 |
+| P&L total | -$0.25 |
+| Trades cerrados | 9 |
+| Win rate | 33% (3/9) |
+| Posiciones abiertas | 0 |
 
 ## Posiciones Abiertas
 | # | Timestamp | Par | Side | Size | Entry | Leverage | Notional | Razón |
 |---|-----------|-----|------|------|-------|----------|----------|-------|
-| 9 | 2026-04-04 13:46 | BTC/USDC:USDC | long | 0.0004 BTC | $67,441 | 3x | $26.98 | Short squeeze setup: funding -2.24% (más fuerte que -0.76% de ayer que generó +$300 rally), tendencia macro +$500/24h, ask vacío (0.73 BTC), bid:ask 5:1. Target: $67,800 (+$359). Stop: $67,200 (-$241). R:R 1.5:1. Fee: $0.012 |
+<!-- Ninguna -->
 
 ## Historial de Trades
 | # | Open | Close | Par | Side | Size | Entry | Exit | Fee | P&L | Razón entrada | Razón salida |
@@ -38,6 +38,7 @@
 | 6 | 2026-04-03 12:59 | 2026-04-03 13:31 | BTC/USDC:USDC | long | 0.0004 | $66,818 | $66,938 | $0.024 | +$0.024 | BTC tendencia alcista macro, funding neutro, leverage 3x | TP: +$120 en 32min. Sell wall 50 BTC + bids vacíos. Cierre defensivo. |
 | 7 | 2026-04-03 13:47 | 2026-04-03 13:55 | BTC/USDC:USDC | long | 0.0004 | $66,924 | $67,001 | $0.024 | +$0.007 | Compresión + bid wall 84 BTC + ask vacío, R:R 2.4:1 | TP pre-funding: +$77, $67K cracking. 3 winners seguidos. |
 | 8 | 2026-04-03 13:57 | 2026-04-03 14:01 | BTC/USDC:USDC | long | 0.0004 | $66,992 | $66,948 | $0.024 | -$0.042 | Buy-the-funding-dip: pre-funding dump | Tesis falló: post-funding no rebotó, < trigger $66,950. Corte disciplinado. |
+| 9 | 2026-04-04 13:46 | 2026-04-04 14:01 | BTC/USDC:USDC | long | 0.0004 | $67,441 | $67,284 | $0.024 | -$0.087 | Squeeze setup: funding -2.24%, macro +$500/24h | Tesis invalidada: funding divergió a -2.96% en vez de converger. Shorts abriendo más, no cerrando. Cierre pre-stop. |
 
 ## Lecciones
 

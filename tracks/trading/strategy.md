@@ -157,6 +157,28 @@ Criterios estándar + todos estos:
 
 ---
 
-## 9. Evolución
+## 9. Señales Exploratorias (en evaluación)
 
-Esta estrategia se actualiza después de cada sesión significativa de paper trading. Las lecciones alimentan los triggers. El objetivo es converger a profit factor >1.0 y win rate >40% antes de considerar capital real.
+### 9.1 SHORT BTC — Trend Following con Funding Confirmation
+Cuando el funding es extremadamente negativo Y el precio confirma bajando, operar CON la manada:
+
+| Criterio | Condición |
+|----------|-----------|
+| Funding | < -2% anualizado (consenso bearish fuerte) |
+| Precio | Bajando (lower highs en últimos 3+ ciclos) |
+| Orderbook | Ask walls >10 BTC, bid side delgado |
+
+**Hipótesis:** Funding extremadamente negativo no siempre es "squeeze inminente". Cuando el precio CONFIRMA la dirección del funding, los shorts tienen razón. Ir con ellos, no contra ellos.
+
+**Lección del trade #9:** Funding -2.24% → -2.96% mientras precio caía $160. Los shorts estaban en lo correcto. Yo insistí en long contra la evidencia.
+
+### 9.2 Regla de Adaptación
+- Si funding < -2% y precio sube → squeeze, ir long (trades #2, #6, #7 de ayer)
+- Si funding < -2% y precio baja → trend, ir short (nueva señal)
+- **La dirección del precio es el filtro, no el funding solo**
+
+---
+
+## 10. Evolución
+
+Esta estrategia se actualiza después de cada sesión significativa de paper trading. Las lecciones alimentan los triggers. El objetivo es converger a profit factor >1.0 y win rate >40% antes de operar capital real significativo.
